@@ -6,8 +6,6 @@ function getComputerChoice() {
 
 function playRound(computer, player) {
 
-    player = player.toLowerCase();
-
     if (computer == "rock" && player == "scissors") {
         return "You Lose!";
     }
@@ -46,31 +44,68 @@ function playRound(computer, player) {
 
 }
 
-function game() {
-    let win = 0;
-    let lose = 0;
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissors = document.querySelector('.scissors');
+const pcResult = document.querySelector('.pcResult');
+const playerResult = document.querySelector('.playerResult');
+const result = document.querySelector('.result');
 
-    for (let i = 0; i < 5; i++) {
-        
-        const playerSelection = prompt("Chose").toLowerCase();
-        const computerSelection = getComputerChoice();
+let numPcResult = 0;
+let numPlayerResult = 0;
 
-        if(playRound(playerSelection, computerSelection) == "You Win!") {
-            console.log("Win!");
-            win++;
-        } else if(playRound(playerSelection, computerSelection) == "You Lose!") {
-            console.log("Lose!");
-            lose++;
+function isDone() {
+    if (numPcResult == 5 || numPlayerResult == 5) {
+        if (numPcResult > numPlayerResult) {
+            result.innerHTML = '<h1>You  Lose!</h1>';
         } else {
-            console.log("Draw!");
+            result.innerHTML = '<h1>You win!</h1>';
         }
     }
-
-    if (win > lose) {
-        return "You Win!";
-    } else if (lose > win) {
-        return "You Lose!";
-    } else {
-        return "It's Draw!";
-    }
 }
+
+rock.addEventListener('click', function (e) {
+    console.log(playRound(getComputerChoice(), "rock"));
+    if ((playRound(getComputerChoice(), "rock")) == 'You Win!') {
+        numPlayerResult++;
+        playerResult.textContent = numPlayerResult;
+    } else if ((playRound(getComputerChoice(), "rock")) == 'You Lose!') {
+        numPcResult++;
+        pcResult.textContent = numPcResult;
+    } else {
+        // nothing to done!
+    }
+
+    isDone();
+});
+
+paper.addEventListener('click', function (e) {
+    console.log(playRound(getComputerChoice(), "paper"));
+    if ((playRound(getComputerChoice(), "paper")) == 'You Win!') {
+        numPlayerResult++;
+        playerResult.textContent = numPlayerResult;
+    } else if ((playRound(getComputerChoice(), "paper")) == 'You Lose!') {
+        numPcResult++;
+        pcResult.textContent = numPcResult;
+    } else {
+        // nothing to done!
+    }
+
+    isDone();
+});
+
+scissors.addEventListener('click', function (e) {
+    console.log(playRound(getComputerChoice(), "scissors"));
+    if ((playRound(getComputerChoice(), "scissors")) == 'You Win!') {
+        numPlayerResult++;
+        playerResult.textContent = numPlayerResult;
+    } else if ((playRound(getComputerChoice(), "scissors")) == 'You Lose!') {
+        numPcResult++;
+        pcResult.textContent = numPcResult;
+    } else {
+        // nothing to done!
+    }
+
+    isDone();
+});
+
